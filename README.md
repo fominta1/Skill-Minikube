@@ -21,3 +21,28 @@ minikube cache add <название локального образа>
 ## табличку с инвентаризацией.
 Результаты работы загрузите на свой GitHub. В качестве ответа приложите ссылку на репозиторий.
 
+# Commands to run
+
+```bash
+# delete if exists
+minikube delete -p tanya-k8s
+
+# create
+minikube config set driver virtualbox
+minikube kubectl -- get po -A
+minikube start --nodes 3 -p tanya-k8s --driver=virtualbox
+
+# deploynment
+minikube config set profile tanya-k8s
+alias kubectl="minikube kubectl --"
+kubectl apply -f 1_configmap.yaml,2_mongo-secret.yaml,3_database.yaml,4_webapp.yaml
+
+# addons for dashboard
+minikube -p tanya-k8s addons enable metrics-server
+
+# dashboard
+minikube dashboard -p tanya-k8s &!
+
+# exposing service
+minikube service webapp-service
+```
